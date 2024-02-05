@@ -4,7 +4,7 @@ import logo from "././images/eBike_logo.png"
 import React, { useState } from "react";
 
 
-function Navbar(props) {
+function Navbar() {
     const [isLoggedIn, setLoggedIn] = useState(false)
     /*
     try{
@@ -25,7 +25,7 @@ function Navbar(props) {
             <li class="navbar-item"><a class="navbar-link" href="/about">About</a></li>
             <li class="navbar-item"><a class="navbar-link" href="/contact">Contact</a></li>
         </ul>
-        {props.isAuthenticated ? <div>Login/Register</div> : <img src={LocalMallIcon} alt="cart" />}
+        {isLoggedIn ? <div>Login/Register</div> : <img src={LocalMallIcon} alt="cart" />}
     </div>
     );
 }
