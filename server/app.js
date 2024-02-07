@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 
 
 const app = express();
-const port = 3001;
+const port = 5000;
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
