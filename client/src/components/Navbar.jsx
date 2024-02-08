@@ -1,9 +1,11 @@
 import axios from "axios";
+import BurgerMenuIcon from "./BurgerMenuIcon";
 import LocalMallIcon from '@mui/icons-material/LocalMall';
+import NavbarItems from "./NavbarItems";
 import React, { useState } from "react";
 
 function Navbar(props) {
-  const [isLoggedIn, setLoggedIn] = useState(false)
+  
   /*
   try{
       async () => {
@@ -14,18 +16,23 @@ function Navbar(props) {
   }
   setLoggedIn(response.data.isAuthenticated);
   */
+  const [isLoggedIn, setLoggedIn] = useState(false)
+  const [isMenuClicked, setMenuIsClicked] = useState(false);
+  const screenWidth = window.innerWidth;
+
+  function toggleMenuIsClicked() {
+    setMenuIsClicked(!isMenuClicked);
+  }
 
   return (
-    <div>
-      <img id="logo" src="" alt="logo" />
-        <img id="logo" src="/images/eBike_logo.png" alt="logo" />
-        <ul class="navbar-items">
-            <li class="navbar-item"><a class="navbar-link" href="/products">Products</a></li>
-            <li class="navbar-item"><a class="navbar-link" href="/about">About</a></li>
-            <li class="navbar-item"><a class="navbar-link" href="/contact">Contact</a></li>
-        </ul>
-        {props.isAuthenticated ? <img src={LocalMallIcon} alt="cart" /> : <div>Login/Register</div>}
-    </div>
+        <div className="navbar-container">
+          <img id="logo" src="/images/eBike_logo.png" alt="logo" />
+          {screenWidth <= 600 ? <BurgerMenuIcon onClick={toggleMenuIsClicked}/> : <NavbarItems />}
+
+          {isMenuClicked && <NavbarItems />}
+          
+          {props.isAuthenticated ? <img src={LocalMallIcon} alt="cart" /> : <div>Login/Register</div>}
+        </div>
   );
 }
 
