@@ -3,41 +3,74 @@
     grid-template-columns: auto auto auto;
     align-items: center;
     justify-content: space-between;
+    margin: 0 30px;
 }
 
 #logo {
-  display: inline;
-  height: 40px;
-  width: 50px;
+    display: inline;
+    height: 80px;
 }
 
 .navbar-items-list {
-  display: flex;
-  margin: 0;
-  padding: 0px;
-  min-width: 300px;
-  min-width: 600px;
-  align-items: center;
-  justify-content: space-around;
-  list-style-type: none;
+    display: flex;
+    margin: 0;
+    padding: 0px;
+    min-width: 300px;
+    min-width: 600px;
+    align-items: center;
+    justify-content: space-around;
+    list-style-type: none;
 }
 
-/*.navbar-link {
-  text-decoration: none;
-  color: inherit;
-}*/
+.navbar-link {
+    color: #fff;
+    font-family: var(--font-family);
+    font-size: var(--subtitle-font-size);
+}
+
+.login-register-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 3px;
+}
+
+.login-button {
+    width: 90px;
+    height: 37px;
+    background-color: #fff;
+    border-radius: 25px;
+    font-family: var(--font-family);
+    font-size: var(--button-font-size);
+}
+
+.register-button {
+    width: 90px;
+    height: 37px;
+    background-color: #000;
+    color: #fff;
+    border-radius: 25px;
+    font-family: var(--font-family);
+    font-size: var(--button-font-size);
+}
 
 .burger-menu {
-  align-self: flex-start;
-  display: flex;
-  justify-content: center;
-  align-items: center; 
-  width: 40px;
-  border-radius: 15%;
-  border: var(--secondary-color) solid 2px;
+    background-color: #000;
+    color: #fff;
+    width: 60px;
+    height: 35px;
+    border-radius: 5px;
+    font-family: var(--font-family);
+    font-size: var(--button-font-size);
 }
 
 .burger-menu:hover {
-  background-color: #fff;
+    background-color: #fff;
+    color: #000;
 }
-  
+
+@media screen and (max-width: 810px) {
+    .navbar-container {
+        grid-template-columns: auto auto;
+        margin: 0 20px;
+    }
+}

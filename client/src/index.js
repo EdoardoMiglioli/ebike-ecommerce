@@ -2,7 +2,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import './styles/index.css';
 import './styles/navbar.css'
-import Navbar from './components/Navbar';
+import Navbar from './components/navbar/Navbar';
 import reportWebVitals from './reportWebVitals';
 
 
