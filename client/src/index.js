@@ -5,6 +5,7 @@ import './styles/navbar.css';
 import './styles/footer.css';
 import Footer from './components/footer/Footer';
 import Navbar from './components/navbar/Navbar';
+import App from './components/App'
 import reportWebVitals from './reportWebVitals';
 
 
@@ -19,6 +20,13 @@ const footer = createRoot(document.getElementById('footer'));
 footer.render(
   <React.StrictMode>
     <Footer />
+  </React.StrictMode>
+);
+
+const app = createRoot(document.getElementById('app'));
+app.render(
+  <React.StrictMode>
+    <App />
   </React.StrictMode>
 );
 

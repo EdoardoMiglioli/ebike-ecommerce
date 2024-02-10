@@ -36,6 +36,10 @@ footer {
     color: #fff;
 }
 
+.footer-link:hover {
+    opacity: 0.6;
+}
+
 .footer-login-register-container {
     display: flex;
     flex-direction: column;
@@ -49,6 +53,10 @@ footer {
     font-family: var(--font-family);
     font-size: var(--button-font-size);
     color: #fff;
+}
+
+.footer-anchor:hover {
+    opacity: 0.6;
 }
 
 @media screen and (max-width: 900px) {

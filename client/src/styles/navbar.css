@@ -26,6 +26,10 @@
     font-size: var(--subtitle-font-size);
 }
 
+.navbar-link:hover {
+    opacity: 0.6;
+}
+
 .login-register-container {
     display: grid;
     grid-template-columns: auto auto;
@@ -41,6 +45,10 @@
     font-size: var(--button-font-size);
 }
 
+.login-button:hover {
+    border: #000 solid 1px;
+}
+
 .register-button {
     width: 90px;
     height: 37px;
@@ -49,6 +57,10 @@
     border-radius: 25px;
     font-family: var(--font-family);
     font-size: var(--button-font-size);
+}
+
+.register-button:hover {
+    border: #fff solid 1px;
 }
 
 .burger-menu {
