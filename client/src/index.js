@@ -1,15 +1,24 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import './styles/index.css';
-import './styles/navbar.css'
+import './styles/navbar.css';
+import './styles/footer.css';
+import Footer from './components/footer/Footer';
 import Navbar from './components/navbar/Navbar';
 import reportWebVitals from './reportWebVitals';
 
 
-const root = createRoot(document.getElementById('navbar'));
-root.render(
+const navbar = createRoot(document.getElementById('navbar'));
+navbar.render(
   <React.StrictMode>
     <Navbar />
+  </React.StrictMode>
+);
+
+const footer = createRoot(document.getElementById('footer'));
+footer.render(
+  <React.StrictMode>
+    <Footer />
   </React.StrictMode>
 );
 

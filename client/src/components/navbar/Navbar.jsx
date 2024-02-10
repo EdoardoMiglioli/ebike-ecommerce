@@ -1,6 +1,6 @@
 import axios from "axios";
 import BurgerMenuIcon from "./BurgerMenuIcon";
-import LoginOrCart from "./LoginOrCart"
+import LoginOrCart from "./LoginOrCart";
 import NavbarItems from "./NavbarItems";
 import React, { useState, useEffect } from "react";
 
@@ -39,10 +39,10 @@ function Navbar() {
   return (
         <div className="navbar-container">
           <a className="logo-anchor" href="/"><img id="logo" src="/images/eBike_logo.png" alt="logo" /></a>
-          {screenWidth <= 810 ? <BurgerMenuIcon onClick={toggleBurgerMenu}/> : <NavbarItems isSmallScreen={false}/>}
-          {screenWidth >= 810 && <LoginOrCart isLoggedIn={isLoggedIn}/>}
+          {screenWidth <= 900 ? <BurgerMenuIcon onClick={toggleBurgerMenu}/> : <NavbarItems isSmallScreen={false}/>}
+          {screenWidth >= 900 && <LoginOrCart isLoggedIn={isLoggedIn}/>}
 
-          {isMenuClicked && <NavbarItems isSmallScreen={true}/>}
+          {isMenuClicked && screenWidth <= 900 && <NavbarItems isSmallScreen={true}/>}
         </div>
   );
 }
