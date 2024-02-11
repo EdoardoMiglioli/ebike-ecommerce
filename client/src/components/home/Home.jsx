@@ -3,7 +3,7 @@ import React from "react";
 function Home() {
     return (
         <main>
-            <h1>Home</h1>
+            <img id="homepage_hero" src="/images/homepage_hero.jpg" alt="cyclist on top of a mountain looking at the landscape"></img>
         </main>
     );
 }
