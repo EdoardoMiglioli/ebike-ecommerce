@@ -3,7 +3,16 @@ import React from "react";
 function Home() {
     return (
         <main>
-            <img id="homepage_hero" src="/images/homepage_hero.jpg" alt="cyclist on top of a mountain looking at the landscape"></img>
+        <div className="hero-container">
+            
+            <div className="hero-content">
+                <h1 className="hero-title">The trip<br/><b>Starts now.</b></h1>
+                <div className="hero-buttons">
+                    <button className="ebikes-button">eBikes</button>
+                    <button className="contact-button">Contact</button>
+                </div>
+            </div>
+        </div>
         </main>
     );
 }
