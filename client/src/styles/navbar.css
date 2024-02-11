@@ -51,7 +51,7 @@
 }
 
 .login-button:hover {
-    border: #000 solid 1px;
+    opacity: 0.6;
 }
 
 .register-button {
@@ -65,7 +65,7 @@
 }
 
 .register-button:hover {
-    border: #fff solid 1px;
+    opacity: 0.6;
 }
 
 .burger-menu {
