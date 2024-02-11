@@ -1,14 +1,18 @@
 :root {
   --primary-color: #08FFC8;
-  --secondary-color: #204969;
+  --secondary-color: #DADADA;
   --bg-color: #FFF7F7;
-  --second-bg-color: #DADADA;
+  --second-bg-color: #204969;
 
   --font-family: 'Montserrat', sans-serif;
+  --large-title-font-size: 54px;
+  --big-title-font-size: 38px;
   --title-font-size: 24px;
   --subtitle-font-size: 18px;
   --button-font-size: 14px;
-  --text-font-size: 12px
+  --text-font-size: 12px;
+  --normal-text-weight: 500;
+  --bold-text-weight: 700;
 }
 
 body, html {
@@ -19,7 +23,7 @@ body, html {
 }
 
 body {
-  background-color: var(--second-bg-color);
+  background-color: #fff;
 }
 
 a {

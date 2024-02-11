@@ -2,7 +2,8 @@ footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 30px;
+    padding: 0 30px;
+    background-color: var(--second-bg-color);
 }
 
 .logo-container {
@@ -61,6 +62,6 @@ footer {
 
 @media screen and (max-width: 900px) {
     .footer {
-        margin: 0 20px;
+        padding: 0 20px;
     }
 }
