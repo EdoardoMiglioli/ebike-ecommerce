@@ -3,7 +3,12 @@
     grid-template-columns: auto 600px auto;
     align-items: center;
     justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 95%;
     margin: 0 30px;
+    z-index: 1;
 }
 
 #logo {
@@ -88,6 +93,7 @@
     .navbar-items-list {
         flex-direction: column;
         align-items: start;
+        width: 100%;
         gap: 5px;
         margin: 0;
         padding: 0px;

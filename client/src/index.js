@@ -8,29 +8,26 @@ import Navbar from './components/navbar/Navbar';
 import App from './components/App'
 import reportWebVitals from './reportWebVitals';
 
+const navbarRoot = document.getElementById('navbar');
+const appRoot = document.getElementById('app');
+const footerRoot = document.getElementById('footer');
 
-const navbar = createRoot(document.getElementById('navbar'));
-navbar.render(
+createRoot(navbarRoot).render(
   <React.StrictMode>
     <Navbar />
   </React.StrictMode>
 );
 
-const footer = createRoot(document.getElementById('footer'));
-footer.render(
+createRoot(footerRoot).render(
   <React.StrictMode>
     <Footer />
   </React.StrictMode>
 );
 
-const app = createRoot(document.getElementById('app'));
-app.render(
+createRoot(appRoot).render(
   <React.StrictMode>
     <App />
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
