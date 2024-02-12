@@ -6,11 +6,13 @@
 
   --font-family: 'Montserrat', sans-serif;
   --large-title-font-size: 54px;
+  --quite-large-title-font-size: 44px;
   --big-title-font-size: 38px;
+  --quite-big-title-font-size: 32px;
   --title-font-size: 24px;
   --subtitle-font-size: 18px;
   --button-font-size: 14px;
-  --text-font-size: 12px;
+  --text-font-size: 14px;
   --normal-text-weight: 500;
   --bold-text-weight: 700;
 }
