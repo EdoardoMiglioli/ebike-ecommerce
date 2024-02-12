@@ -13,7 +13,7 @@ main {
     background-image: url('../../public/images/homepage_hero.png');
     background-size: cover;
     background-position: center;
-  }
+}
 
 
 .hero-content {
@@ -82,7 +82,7 @@ main {
 
 .hot-product-section-text {
     font-family: var(--font-family);
-    font-size: var(--subtitle-font-size);   
+    font-size: var(--subtitle-font-size);
 }
 
 .hot-product-section-button {
