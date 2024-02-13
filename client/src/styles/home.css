@@ -237,11 +237,16 @@ main {
     }
     
     .home-product-card-content {
-        grid-template-columns: 1fr auto;
+        grid-template-columns: auto 1fr;
         grid-template-rows: auto;
         background-color: #fff;
         height: auto;
-        padding: 2.5%;
+        padding: 3%;
+    }
+
+    .product-card-text-container {
+        text-align: left;
+        margin-left: 10px;
     }
 
     .home-product-image {
