@@ -146,7 +146,8 @@ main {
 }
 
 .product-card-text {
-    margin: 0px;
+    font-family: var(--font-family);
+    font-size: var(--text-font-size); 
 }
 
 .home-product-image {
@@ -198,7 +199,7 @@ main {
     }
 
     .hot-product-image {
-        border-top-right-radius: 25px;
+        border-top-right-radius: 25%;
     }
 
     .product-card-button {
@@ -219,7 +220,7 @@ main {
 
     .hot-product-image {
         grid-row: 1;
-        border-top-right-radius: 25px;
+        border-top-right-radius: 25%;
     }
 
     .hot-product-content-container {
