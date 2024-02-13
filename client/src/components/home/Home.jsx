@@ -15,8 +15,8 @@ function Home() {
             <HomeHero />
             <HotProductSection />
             <section className="products-list-section">
-                {productsList.map(product => {
-                    return <ProductCard name={product.name} description={product.description} imageName={product.imageName} />;
+                {productsList.map((product, index) => {
+                    return <ProductCard key={index} name={product.name} description={product.description} imageName={product.imageName} />;
                 })}
             </section>
         </main>
