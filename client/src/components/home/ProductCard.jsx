@@ -6,12 +6,14 @@ function ProductCard(props) {
 
     return (
         <div className="home-product-card">
-            <img src={imageURL} alt={props.name} />
-            <div className="product-card-text-container">
-                <h3 className="product-card-title">{props.name}</h3>
-                <p className="product-card-text">{props.description}</p>
+            <div className="home-product-card-content">
+                <img className="home-product-image" src={imageURL} alt={props.name} />
+                <div className="product-card-text-container">
+                    <h3 className="product-card-title">{props.name}</h3>
+                    <p className="product-card-text">{props.description}</p>
+                </div>
             </div>
-            <a className="product-card-button" type="button" href={productPath}>Discover</a>
+            <button className="product-card-button" type="button"><a className="product-card-button-anchor" href={productPath}>Discover</a></button>
         </div>
     );
 }
