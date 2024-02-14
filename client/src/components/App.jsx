@@ -1,12 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './home/Home';
+import About from './about/About';
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route exact path="/" element={<Home />} />
+        <Route excat path="/about" element={<About />} />
         <Route path="*" element={<h1>Not found 404 (*O*)</h1>} />
       </Routes>
     </Router>
