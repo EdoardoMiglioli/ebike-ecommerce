@@ -29,6 +29,7 @@
     text-align: justify;
     font-family: var(--font-family);
     font-size: var(--subtitle-font-size);
+    font-weight: var(--slim-text-weight);
     margin-bottom: 5%;
 }
 
@@ -56,5 +57,10 @@
     .team-photos-container {
         padding-top: 12%;
         padding-bottom: 12%;
+    }
+
+    .paragraph-container {
+        margin-left: 10%;
+        margin-right: 10%;
     }
 }
