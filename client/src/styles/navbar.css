@@ -76,6 +76,7 @@
     border-radius: 5px;
     font-family: var(--font-family);
     font-size: var(--button-font-size);
+    font-weight: var(--normal-text-weight);
 }
 
 .burger-menu:hover {

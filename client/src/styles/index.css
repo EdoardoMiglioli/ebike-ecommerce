@@ -5,7 +5,9 @@
   --second-bg-color: #204969;
   --third-bg-color: #191919;
 
+
   --font-family: 'Montserrat', sans-serif;
+
   --large-title-font-size: 54px;
   --quite-large-title-font-size: 44px;
   --big-title-font-size: 38px;
@@ -14,6 +16,8 @@
   --subtitle-font-size: 18px;
   --button-font-size: 14px;
   --text-font-size: 14px;
+
+  --slim-text-weight: 400;
   --normal-text-weight: 500;
   --bold-text-weight: 700;
 }
