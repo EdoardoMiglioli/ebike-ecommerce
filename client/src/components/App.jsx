@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './home/Home';
 import About from './about/About';
+import Contact from './contact/Contact'
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route excat path="/about" element={<About />} />
+        <Route excat path="/contact" element={<Contact />} />
         <Route path="*" element={<h1>Not found 404 (*O*)</h1>} />
       </Routes>
     </Router>

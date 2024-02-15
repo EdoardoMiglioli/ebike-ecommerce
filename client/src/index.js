@@ -6,6 +6,7 @@ import './styles/navbar.css';
 import './styles/footer.css';
 import './styles/home.css';
 import './styles/about.css';
+import './styles/contact.css';
 
 import Footer from './components/footer/Footer';
 import Navbar from './components/navbar/Navbar';
