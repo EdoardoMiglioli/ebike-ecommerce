@@ -51,3 +51,9 @@ input[type="submit"] {
   cursor: pointer; 
   outline: none; 
 }
+
+input, textarea {
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
