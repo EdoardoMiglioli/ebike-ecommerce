@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 function ProductCard(props) {
     const [isInStock, setInStock] = useState(props.isInStock);
+    const imgPath = `/images/CardImages/${props.imgName}.webp`;
 
     let stock;
     if (isInStock) {
@@ -12,7 +13,7 @@ function ProductCard(props) {
 
     return (
         <div className="product-card-container" >
-            <img className="product-card-img" src="" />
+            <img className="product-card-img" src={imgPath} />
             <div className="product-card-infos-container">
                 <div className="product-card-header" >
                     <h2 className="product-card-name" >{props.name}</h2>
