@@ -1,0 +1,8 @@
+.products-hero-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-image: url('../../public/images/ElectroVoltProductsHero.png');
+    background-size: cover;
+    background-position: center;
+}
