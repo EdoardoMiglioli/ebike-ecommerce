@@ -2,7 +2,7 @@ import React from "react";
 
 function ProductCard(props) {
     const imageURL = `/images/${props.imageName}`;
-    const productPath = `/products/${props.name}`
+    const productPath = `/product/${props.name}`
 
     return (
         <div className="home-product-card">
