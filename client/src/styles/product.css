@@ -1,0 +1,25 @@
+.product-page-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    height: 100vh;
+    gap: 10%;
+    margin: 0 5%;
+}
+
+.product-page-img {
+    width: 100%;
+}
+
+.product-page-infos-container {
+    align-self: right;
+}
+
+.product-page-title {
+    font-family: var(--font-family);
+    font-size: var(--quite-large-title-font-size);
+}
+
+.rating-star {
+    font-size: var(--quite-big-title-font-size);
+}
