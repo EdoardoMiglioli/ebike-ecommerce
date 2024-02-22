@@ -3,8 +3,10 @@
     grid-template-columns: 1fr 1fr;
     align-items: center;
     height: 100vh;
+    width: 100%;
     gap: 10%;
     margin: 0 5%;
+    font-family: var(--font-family);
 }
 
 .product-page-img {
@@ -13,13 +15,72 @@
 
 .product-page-infos-container {
     align-self: right;
+    width: 80%;
 }
 
 .product-page-title {
-    font-family: var(--font-family);
     font-size: var(--quite-large-title-font-size);
+}
+
+.product-page-description {
+    font-size: var(--subtitle-font-size);
 }
 
 .rating-star {
     font-size: var(--quite-big-title-font-size);
+}
+
+.product-info {
+    display: grid;
+    grid-template-columns: 24px auto;
+    gap: 15px;
+    margin: 15px 0;
+}
+
+.product-charge, .product-battery {
+    margin: 0;
+}
+
+.product-price-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+}
+
+.product-price {
+    font-size: var(--title-font-size);
+}
+
+.product-stock {
+    font-weight: var(--normal-text-weight);
+}
+
+.product-buttons-container {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
+    margin-top: 5%;
+}
+
+.product-button {
+    width: 100%;
+    height: 37px;
+    margin-right: 8px;
+    color: #fff;
+    border-radius: 25px;
+    font-family: var(--font-family);
+    font-size: var(--button-font-size);
+    font-weight: var(--bold-text-weight);
+}
+
+.product-button:hover {
+    opacity: 0.6;
+}
+
+.cart-button {
+    background-color: var(--second-bg-color);
+}
+
+.buy-button {
+    background-color: #000;
 }
