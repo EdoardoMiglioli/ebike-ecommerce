@@ -38,7 +38,10 @@ function Product() {
                         <Battery0BarIcon />
                         <p className="product-battery" >Range - Up To {product.battery} miles</p>
                     </div>
-                    <p className="product-stock" >{stock}</p>
+                    <div className="product-price-container" >
+                        <h3 className="product-price" >${product.price}</h3>
+                        <p className="product-stock" >{stock}</p>
+                    </div>
                 </div>
                 <div className="product-buttons-container">
                     <button className="product-button cart-button">Add to Cart</button>
