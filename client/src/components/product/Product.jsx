@@ -44,8 +44,8 @@ function Product() {
                     </div>
                 </div>
                 <div className="product-buttons-container">
-                    <button className="product-button cart-button">Add to Cart</button>
-                    <button className="product-button buy-button">Buy Now</button>
+                    <a href="/" className="product-button cart-button">Add to Cart</a>
+                    <a href="/" className="product-button buy-button">Buy Now</a>
                 </div>
             </div>
         </main>

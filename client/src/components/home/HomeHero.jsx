@@ -6,8 +6,8 @@ function HomeHero() {
         <div className="hero-content">
             <h1 className="hero-title">The trip<br/><b>Starts now.</b></h1>
             <div className="hero-buttons">
-                <button className="ebikes-button">eBikes</button>
-                <button className="contact-button">Contact</button>
+                <a href="/products" className="ebikes-button">eBikes</a>
+                <a href="/contact" className="contact-button">Contact</a>
             </div>
         </div>
     </section>

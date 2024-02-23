@@ -13,7 +13,7 @@ function ProductCard(props) {
                     <p className="product-card-text">{props.description}</p>
                 </div>
             </div>
-            <button className="product-card-button" type="button"><a className="product-card-button-anchor" href={productPath}>Discover</a></button>
+            <a className="product-card-button" href={productPath}>Discover</a>
         </div>
     );
 }

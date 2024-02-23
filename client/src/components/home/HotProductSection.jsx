@@ -12,7 +12,7 @@ function HotProductSection() {
                     eBike characterized by an elegant desig
                     built for both the wild and the city.
                     </p>
-                    <button className="hot-product-section-button">Shop</button>
+                    <a href="/product/SwiftEvelo" className="hot-product-section-button">Shop</a>
                 </div>
                 <img className="hot-product-image" src="/images/SwiftEvelo.png" alt="SwiftEvelo" />
             </div>
