@@ -84,3 +84,19 @@
 .buy-button {
     background-color: #000;
 }
+
+@media screen and (max-width: 712px) {
+    .product-page-container {
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 1fr 1fr;
+        gap: 0;
+        width: 90%;
+        height: auto;
+        margin: 10% 5%;
+    }
+
+    .product-page-infos-container {
+        width: 100%;
+    }
+}
