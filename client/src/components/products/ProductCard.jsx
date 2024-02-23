@@ -36,7 +36,7 @@ function ProductCard(props) {
                     <h3 className="product-card-price" >${props.price}</h3>
                     <p className="product-card-stock" >{stock}</p>
                 </div>
-                <button className="product-card-cta" ><a className="product-card-cta" href={productPath} >Discover</a></button>
+                <a className="product-card-cta" href={productPath} >Discover</a>
             </div>
         </div>
     );
