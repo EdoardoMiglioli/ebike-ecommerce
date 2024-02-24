@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import StarRating from "./StarRating";
 import Battery0BarIcon from '@mui/icons-material/Battery0Bar';
 import PedalBikeIcon from '@mui/icons-material/PedalBike';
 
@@ -22,6 +23,7 @@ function ProductCard(props) {
                     <h2 className="product-card-name" >{props.name}</h2>
                     <p className="product-card-description" >{props.shortDescription}</p>
                 </div>
+                <StarRating />
                 <div className="product-card-infos" >
                     <div className="product-card-info" >
                         <PedalBikeIcon />
