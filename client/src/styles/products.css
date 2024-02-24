@@ -48,8 +48,17 @@
     width: 100%;
 }
 
-.product-card-header {
-    border-bottom: #000 solid 2px;
+.product-card-description {
+    margin-bottom: 0;
+}
+
+.product-rating-stars {
+    margin: 16px 0;
+    
+}
+
+.product-rating-star {
+    font-size: var(--title-font-size);
 }
 
 .product-card-charge, .product-card-battery {
@@ -91,6 +100,12 @@
 
 .product-card-cta:hover {
     opacity: 0.6;
+}
+
+@media screen and (max-width: 900px) {
+    .product-rating-star {
+        font-size: var(--subtitle-font-size);
+    }
 }
 
 @media screen and (max-width: 712px) {
