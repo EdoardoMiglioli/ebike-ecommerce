@@ -84,6 +84,17 @@
     color: #000;
 }
 
+/* Classes for white bg pages */
+
+.dark {
+    color:#000;
+}
+
+.login-button-product {
+    background-color: var(--second-bg-color);
+    color: #fff;
+}
+
 @media screen and (max-width: 900px) {
     .navbar-container {
         grid-template-columns: auto auto;

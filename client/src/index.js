@@ -1,5 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import './styles/index.css';
 import './styles/navbar.css';
@@ -21,7 +22,9 @@ const footerRoot = document.getElementById('footer');
 
 createRoot(navbarRoot).render(
   <React.StrictMode>
-    <Navbar />
+    <Router>
+      <Navbar />
+    </Router>
   </React.StrictMode>
 );
 
