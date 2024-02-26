@@ -10,6 +10,7 @@ import './styles/about.css';
 import './styles/contact.css';
 import './styles/products.css';
 import './styles/product.css';
+import './styles/register.css';
 
 import Footer from './components/footer/Footer';
 import Navbar from './components/navbar/Navbar';
