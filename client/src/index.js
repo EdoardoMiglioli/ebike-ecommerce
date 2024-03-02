@@ -11,6 +11,7 @@ import './styles/contact.css';
 import './styles/products.css';
 import './styles/product.css';
 import './styles/register.css';
+import './styles/login.css';
 
 import Footer from './components/footer/Footer';
 import Navbar from './components/navbar/Navbar';
