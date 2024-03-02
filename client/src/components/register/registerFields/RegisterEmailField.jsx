@@ -4,7 +4,7 @@ function RegisterEmailField() {
     return (                
     <div className="register-field-container">
         <label className="register-email-label" >Email</label>
-        <input className="register-email-input" type="email" />
+        <input className="register-email-input" type="email" name="email" />
     </div>
 );
 }
