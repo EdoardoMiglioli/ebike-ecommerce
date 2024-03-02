@@ -6,6 +6,7 @@ import Contact from './contact/Contact'
 import Product from './product/Product';
 import Products from './products/Products';
 import Register from './register/Register';
+import Login from './login/Login';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route excat path="/products" element={<Products />} />
         <Route path="/product/:productName" element={<Product />} />
         <Route excat path="/register" element={<Register />} />
+        <Route excat path="/login" element={<Login />} />
         <Route path="*" element={<h1>Not found 404 (*O*)</h1>} />
       </Routes>
     </Router>
