@@ -37,18 +37,16 @@ function Navbar() {
     };
   }, []);
 
-  /*
   try{
-      async () => {
+    (async () => {
       const response = await axios.get('/api/check-auth');
-      }
+      const { isAuthenticated } = response.data;
+      setLoggedIn(isAuthenticated);
+    })();
   } catch (err) {
-      console.error('Error checking authentication status:', err);
+    console.error('Error checking authentication status:', err);
   }
-  setLoggedIn(response.data.isAuthenticated);
-  */
-
-
+  
   return (
         <nav className='navbar-container'>
           <a className="logo-anchor" href="/"><img id="logo" src={logoPath} alt="logo" /></a>
