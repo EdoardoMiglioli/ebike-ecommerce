@@ -64,6 +64,14 @@ app.post("/register", (req, res) => {
     });
 });
 
+app.get('/api/check-auth', (req, res) => {
+  if (req.isAuthenticated) {
+    res.json({isAuthenticated: true});
+  } else {
+    res.json({isAuthenticated: false});
+  }
+})
+
 // Passport strategies
 
 passport.use(
