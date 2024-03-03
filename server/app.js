@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt"
 import bodyParser from "body-parser";
 import dotenv from 'dotenv';
+dotenv.config();
 import express from "express";
 import passport from "passport";
 import { Strategy } from "passport-local";
@@ -11,7 +12,6 @@ import pg from "pg";
 const app = express();
 const port = 5001;
 const saltRounds = 10;
-dotenv.config();
 
 app.use(
   session({
@@ -50,7 +50,19 @@ app.post("/login", passport.authenticate("local", {
   failureRedirect: "/login",
 }))
 
-app.post("/register");
+app.post("/register", (req, res) => {
+  const { email, password } = req.body;
+    bcrypt.hash(password, saltRounds, (err, hash) => {
+      if (err) throw err;
+      db.query("INSERT INTO users (email, password) VALUES ($1, $2)", [email, hash], (err) => {
+          if (err) {
+            res.status(500).send("Error registering user");
+          } else {
+            res.redirect("/products");
+          }
+      });
+    });
+});
 
 // Passport strategies
 
