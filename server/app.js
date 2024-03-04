@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt"
 import bodyParser from "body-parser";
+import cors from "cors";
 import dotenv from 'dotenv';
 dotenv.config();
 import express from "express";
@@ -28,6 +29,11 @@ app.use(express.static("public"));
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true,
+}));
+
 const db = new pg.Client({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
@@ -45,10 +51,26 @@ app.get("/cart/:user", (req, res) => {
   }
 });
 
-app.post("/login", passport.authenticate("local", {
-  successRedirect: "/",
-  failureRedirect: "/login",
-}))
+app.get('/api/check-auth', (req, res) => {
+  if (req.isAuthenticated) {
+    res.json({isAuthenticated: true});
+  } else {
+    res.json({isAuthenticated: false});
+  }
+})
+
+app.post("/login", function(req, res, next) {
+  passport.authenticate("local", function(err, user, info) {
+    if (err) {
+      return res.redirect("/login?error=" + encodeURIComponent(err));
+    }
+    if (!user) {
+      return res.redirect("/login?error=" + encodeURIComponent(info.message));
+    }
+    return res.redirect("/");
+  })(req, res, next);
+});
+
 
 app.post("/register", (req, res) => {
   const { email, password } = req.body;
@@ -64,43 +86,30 @@ app.post("/register", (req, res) => {
     });
 });
 
-app.get('/api/check-auth', (req, res) => {
-  if (req.isAuthenticated) {
-    res.json({isAuthenticated: true});
-  } else {
-    res.json({isAuthenticated: false});
-  }
-})
-
 // Passport strategies
 
 passport.use(
   "local",
-  new Strategy(async function verify(email, password, cb) {
+  new Strategy(async function verify(username, password, cb) {
     try {
-      const result = await db.query("SELECT * FROM users WHERE email = $1 ", [
-        email,
+      const result = await db.query("SELECT * FROM users WHERE email = $1", [
+        username,
       ]);
       if (result.rows.length > 0) {
         const user = result.rows[0];
         const storedHashedPassword = user.password;
-        bcrypt.compare(password, storedHashedPassword, (err, valid) => {
-          if (err) {
-            console.error("Error comparing passwords:", err);
-            return cb(err);
-          } else {
-            if (valid) {
-              return cb(null, user);
-            } else {
-              return cb(null, false);
-            }
-          }
-        });
+        const valid = await bcrypt.compare(password, storedHashedPassword);
+        if (valid) {
+          return cb(null, user);
+        } else {
+          return cb(null, false, { message: "Invalid password" });
+        }
       } else {
-        return cb("User not found");
+        return cb(null, false, { message: "User not found" });
       }
     } catch (err) {
-      console.log(err);
+      console.error("Error authenticating user:", err);
+      return cb(err);
     }
   })
 );
