@@ -50,10 +50,10 @@ function Navbar() {
   return (
         <nav className='navbar-container'>
           <a className="logo-anchor" href="/"><img id="logo" src={logoPath} alt="logo" /></a>
-          {screenWidth <= 900 ? <BurgerMenuIcon onClick={toggleBurgerMenu} /> : <NavbarItems isSmallScreen={false} isProductPage={isProductPage} />}
+          {screenWidth <= 900 ? <BurgerMenuIcon onClick={toggleBurgerMenu} /> : <NavbarItems isLoggedIn={isLoggedIn} isSmallScreen={false} isProductPage={isProductPage} />}
           {screenWidth >= 900 && <LoginOrCart isLoggedIn={isLoggedIn} isProductPage={isProductPage} />}
 
-          {isMenuClicked && screenWidth <= 900 && <NavbarItems isSmallScreen={true} isProductPage={isProductPage} />}
+          {isMenuClicked && screenWidth <= 900 && <NavbarItems isLoggedIn={isLoggedIn} isSmallScreen={true} isProductPage={isProductPage} />}
         </nav>
   );
 }
