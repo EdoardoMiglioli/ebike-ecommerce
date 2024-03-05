@@ -1,21 +1,50 @@
-import React from "react";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
 import ProductsHero from "./ProductsHero";
 import ProductCard from "./ProductCard";
 
 function Products() {
-    const productsList = [
-        {name: "SwiftEvelo", imgName: "SwiftEvelo_card", shortDescription: "a modern and comfortable eBike for both the wild and the city.", charge: "750w / 115Nm", batteryEnduranceMiles: 100, price: 3000, isInStock: true},
-        {name: "3cycle", imgName: "3cycle_card",shortDescription: "All the comfort you need in the city.", charge: "900w / 90Nm", batteryEnduranceMiles: 60, price: 2500, isInStock: true},
-        {name: "VelocitySpark", imgName: "VelocitySpark_card",shortDescription: "Perfect for a relaxing and yet challenging pedalling.", charge: "700w / 115Nm", batteryEnduranceMiles: 80, price: 2000, isInStock: true},
-        {name: "GlidePulse", imgName: "GlidePulse_card",shortDescription: "An high tech eBike for passionates who fear nothing.", charge: "600w / 100Nm", batteryEnduranceMiles: 120, price: 2750, isInStock: true},
-    ];
+    const [productsList, setProductsList] = useState([])
+    const [sortBy, setSortBy] = useState('id');
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get("/products");
+          setProductsList(response.data.products);
+        } catch (err) {
+          setError(err);
+        }
+      };
+  
+      fetchData();
+  
+      // Cleanup function (optional)
+      // You can add cleanup logic here if needed
+  
+    }, []); // Empty dependency array ensures this effect runs only once after mount
+  
+    if (error) {
+      console.log(error);
+      return (
+        <main>
+          <ProductsHero />
+          <div className="products-container">
+            <p>No products found</p>
+          </div>
+        </main>
+    );
+    }
+    
     
     return (
         <main>
             <ProductsHero />
+            
             <div className="products-container" >
-                {productsList.map((product, index) => {
-                    return <ProductCard key={index} name={product.name} imgName={product.imgName} shortDescription={product.shortDescription} charge={product.charge} battery={product.batteryEnduranceMiles} price={product.price} isInStock={product.isInStock} />
+                {productsList.map((product) => {
+                    return <ProductCard key={product.id} name={product.name} imgName={product.imgname} shortDescription={product.description} charge={product.charge} battery={product.batteryendurancemiles} price={parseInt(product.price)} isInStock={product.isInStock} />
                 })}
             </div>
         </main>
