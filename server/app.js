@@ -51,11 +51,24 @@ app.get("/cart/:user", (req, res) => {
   }
 });
 
-app.get('/api/check-auth', (req, res) => {
+app.get("/api/check-auth", (req, res) => {
   if (req.isAuthenticated) {
     res.json({isAuthenticated: true});
   } else {
     res.json({isAuthenticated: false});
+  }
+})
+
+// DB get
+app.get("/products", async (req, res) => {
+  const sorting = req.query.sorting;
+  try {
+    const response = await db.query(`SELECT * FROM public.products ORDER BY ${sorting}`);
+    const listOfBikes = response.rows;
+    res.json({ products: listOfBikes });
+  } catch (error) {
+    console.error("Error retrieving products:", error);
+    res.status(500).json({ error: "Error retrieving products" });
   }
 })
 
