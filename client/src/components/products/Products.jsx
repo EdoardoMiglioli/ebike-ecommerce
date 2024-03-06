@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import ProductsHero from "./ProductsHero";
 import ProductCard from "./ProductCard";
+import SortProducts from "./SortProducts";
 
 function Products() {
     const [productsList, setProductsList] = useState([])
@@ -11,7 +12,7 @@ function Products() {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await axios.get("/products");
+          const response = await axios.get(`/products?sorting=${sortBy}`);
           setProductsList(response.data.products);
         } catch (err) {
           setError(err);
@@ -19,12 +20,9 @@ function Products() {
       };
   
       fetchData();
-  
-      // Cleanup function (optional)
-      // You can add cleanup logic here if needed
-  
-    }, []); // Empty dependency array ensures this effect runs only once after mount
-  
+    
+    }, [sortBy]);
+
     if (error) {
       console.log(error);
       return (
@@ -41,10 +39,10 @@ function Products() {
     return (
         <main>
             <ProductsHero />
-            
+            <SortProducts sortBy={sortBy} onSortChange={setSortBy} />
             <div className="products-container" >
                 {productsList.map((product) => {
-                    return <ProductCard key={product.id} name={product.name} imgName={product.imgname} shortDescription={product.description} charge={product.charge} battery={product.batteryendurancemiles} price={parseInt(product.price)} isInStock={product.isInStock} />
+                    return <ProductCard key={product.id} name={product.name} imgName={product.imgname} shortDescription={product.description} charge={product.charge} battery={product.batteryendurancemiles} price={parseInt(product.price)} isInStock={product.isinstock} />
                 })}
             </div>
         </main>
