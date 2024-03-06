@@ -30,6 +30,26 @@
     font-weight: var(--bold-text-weight);
 }
 
+/* Products sorting */
+.products-sorting-container {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: 100px;
+    gap: 5px;
+    font-family: var(--font-family);
+    margin: 15px 0 0 15px;
+}
+
+.products-sorting-label {
+    font-weight: var(--normal-text-weight);
+    font-size: var(--text-font-size);
+}
+
+.products-sorting {
+    border-radius: 25px;
+    height: 25px;
+}
+
 /* Products */
 
 .products-container {
