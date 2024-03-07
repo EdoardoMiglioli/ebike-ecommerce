@@ -1,0 +1,21 @@
+.external-login-button {
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    justify-items: start;
+    background-color: #fff;
+    border-radius: 25px;
+    width: 20%;
+    height: 30px;
+    margin: 20px;
+    font-family: var(--font-family);
+    font-weight: var(--bold-text-weight);
+}
+
+.login-icon {
+    margin-left: 5px;
+}
+
+.external-login-button:hover {
+    opacity: 0.6;
+}

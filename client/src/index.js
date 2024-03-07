@@ -12,6 +12,7 @@ import './styles/products.css';
 import './styles/product.css';
 import './styles/register.css';
 import './styles/login.css';
+import './styles/external-login-buttons.css';
 
 import Footer from './components/footer/Footer';
 import Navbar from './components/navbar/Navbar';

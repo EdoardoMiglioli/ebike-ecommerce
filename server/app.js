@@ -1,3 +1,4 @@
+import authRoute from "./auth.js";
 import bcrypt from "bcrypt"
 import bodyParser from "body-parser";
 import cors from "cors";
@@ -22,6 +23,16 @@ app.use(
   })
 );
 
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    methods: "GET,POST,PUT,PATCH,DELETE",
+    credentials: true,
+  })
+)
+
+app.use("auth", authRoute);
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -29,10 +40,7 @@ app.use(express.static("public"));
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(cors({
-  origin: 'http://localhost:3000',
-  credentials: true,
-}));
+
 
 const db = new pg.Client({
     user: process.env.DB_USER,
@@ -50,6 +58,9 @@ app.get("/cart/:user", (req, res) => {
     res.json({});
   }
 });
+
+
+// Authentication
 
 app.get("/api/check-auth", (req, res) => {
   if (req.isAuthenticated) {
@@ -72,6 +83,9 @@ app.get("/products", async (req, res) => {
   }
 })
 
+
+// Login / register
+
 app.post("/login", function(req, res, next) {
   passport.authenticate("local", function(err, user, info) {
     if (err) {
@@ -83,7 +97,6 @@ app.post("/login", function(req, res, next) {
     return res.redirect("/");
   })(req, res, next);
 });
-
 
 app.post("/register", (req, res) => {
   const { email, password } = req.body;
@@ -98,6 +111,7 @@ app.post("/register", (req, res) => {
       });
     });
 });
+
 
 // Passport strategies
 
@@ -126,6 +140,30 @@ passport.use(
     }
   })
 );
+
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: 'http://localhost:3000/auth/google/secrets',
+},
+async function(accessToken, refreshToken, profile, done) {
+  try {
+    const result = await db.query("SELECT * FROM public.users WHERE email = $1",
+    [profile.email]);
+
+    if (result.rows.length === 0) {
+      const newUser = await db.query("INSERT INTO public.users (email, password) VALUES ($1, $2)", 
+      [profile.email, "google"]);
+      cb(null, newUser.rows[0]);
+    } else {
+      cb(null, result.rows[0]);
+    }
+  } catch (err) {
+    console.log(err);
+    cb(err);
+  }
+}
+));
 
 passport.serializeUser((user, cb) => {
   cb(null, user);
