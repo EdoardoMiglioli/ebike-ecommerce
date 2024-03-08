@@ -8,6 +8,7 @@ import express from "express";
 import passport from "passport";
 import { Strategy } from "passport-local";
 import GoogleStrategy from "passport-google-oauth2";
+import GithubStrategy from "passport-github2";
 import session from "express-session";
 import pg from "pg";
 
@@ -144,7 +145,7 @@ passport.use(new GoogleStrategy({
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
   callbackURL: 'http://localhost:3000/auth/google/secrets',
 },
-async function(accessToken, refreshToken, profile, done) {
+async function(accessToken, refreshToken, profile, cb) {
   try {
     const result = await db.query("SELECT * FROM public.users WHERE email = $1",
     [profile.email]);
@@ -162,6 +163,32 @@ async function(accessToken, refreshToken, profile, done) {
   }
 }
 ));
+
+
+passport.use(new GithubStrategy({
+  clientID: process.env.GITHUB_CLIENT_ID,
+  clientSecret: process.env.GITHUB_CLIENT_SECRET,
+  callbackURL: '/auth/github/callback',
+},
+async function(accessToken, refreshToken, profile, cb) {
+  try {
+    const result = await db.query("SELECT * FROM public.users WHERE email = $1",
+    [profile.username]);
+
+    if (result.rows.length === 0) {
+      const newUser = await db.query("INSERT INTO public.users (email, password) VALUES ($1, $2)", 
+      [profile.username, "github"]);
+      cb(null, newUser.rows[0]);
+    } else {
+      cb(null, result.rows[0]);
+    }
+  } catch (err) {
+    console.log(err);
+    cb(err);
+  }
+}
+));
+
 
 passport.serializeUser((user, cb) => {
   cb(null, user);
