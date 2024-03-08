@@ -25,13 +25,13 @@ app.use(
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "http://localhost:5001",
     methods: "GET,POST,PUT,PATCH,DELETE",
     credentials: true,
   })
-)
+);
 
-app.use("auth", authRoute);
+app.use("/auth", authRoute);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -39,8 +39,6 @@ app.use(express.static("public"));
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-
 
 const db = new pg.Client({
     user: process.env.DB_USER,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Redirect } from 'react-router-dom';
 import Home from './home/Home';
 import About from './about/About';
 import Contact from './contact/Contact'
@@ -13,6 +13,7 @@ function App() {
     <Router>
       <Routes>
         <Route exact path="/" element={<Home />} />
+        <Route path="/auth/google/secrets" element={<Home />} />
         <Route excat path="/about" element={<About />} />
         <Route excat path="/contact" element={<Contact />} />
         <Route excat path="/products" element={<Products />} />

@@ -20,13 +20,16 @@ function Login() {
     }, []);
 
     // onClick={google}
+    const google = () => {
+      window.open("http://localhost:5001/auth/google", "_self")
+    }
     
     return (
       <main className="login-container">
           <h1 className="login-title">Login</h1>
           {errorMessage && <p className="error" >{errorMessage}</p>}
           <LoginForm />
-          <ExternalLoginButtons />
+          <ExternalLoginButtons onClickGoogle={google} />
       </main>
     );
 }
