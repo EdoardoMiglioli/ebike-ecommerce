@@ -69,6 +69,16 @@ app.get("/api/check-auth", (req, res) => {
   }
 })
 
+app.get("/auth/logout", (req, res) => {
+  req.logout((err) => {
+    if (err) {
+      console.error('Error logging out:', err);
+      return res.status(500).send('Error logging out');
+    }
+    res.redirect("http://localhost:3000");
+  });
+});
+
 // DB get
 app.get("/products", async (req, res) => {
   const sorting = req.query.sorting;
@@ -172,12 +182,13 @@ passport.use(new GithubStrategy({
 },
 async function(accessToken, refreshToken, profile, cb) {
   try {
+    const username = profile._json.email ? profile._json.email : profile.username;
     const result = await db.query("SELECT * FROM public.users WHERE email = $1",
-    [profile.username]);
+    [username]);
 
     if (result.rows.length === 0) {
       const newUser = await db.query("INSERT INTO public.users (email, password) VALUES ($1, $2)", 
-      [profile.username, "github"]);
+      [username, "github"]);
       cb(null, newUser.rows[0]);
     } else {
       cb(null, result.rows[0]);
