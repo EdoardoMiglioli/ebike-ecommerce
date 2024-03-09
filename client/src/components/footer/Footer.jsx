@@ -1,6 +1,19 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 
 function Footer() {
+    const [isLoggedIn, setLoggedIn] = useState(false)
+
+    try{
+        (async () => {
+          const response = await axios.get('/api/check-auth');
+          const { isAuthenticated } = response.data;
+          setLoggedIn(isAuthenticated);
+        })();
+    } catch (err) {
+        console.error('Error checking authentication status:', err);
+    }
+
     return (
     <footer className="footer">
         <div className="logo-container">
@@ -16,6 +29,7 @@ function Footer() {
         <div className="footer-login-register-container">
             <a className="footer-anchor login-anchor" href="/login">Login</a>
             <a className="footer-anchor register-anchor" href="/register">Register</a>
+            {isLoggedIn && <a className="footer-anchor register-anchor" href="http://localhost:5001/auth/logout">Logout</a>}
         </div>
     </footer>);
 }
