@@ -19,9 +19,12 @@ function Login() {
       }
     }, []);
 
-    // onClick={google}
     const google = () => {
       window.open("http://localhost:5001/auth/google", "_self")
+    }
+
+    const github = () => {
+      window.open("http://localhost:5001/auth/github", "_self")
     }
     
     return (
@@ -29,7 +32,7 @@ function Login() {
           <h1 className="login-title">Login</h1>
           {errorMessage && <p className="error" >{errorMessage}</p>}
           <LoginForm />
-          <ExternalLoginButtons onClickGoogle={google} />
+          <ExternalLoginButtons onClickGoogle={google} onClickGitHub={github} />
       </main>
     );
 }

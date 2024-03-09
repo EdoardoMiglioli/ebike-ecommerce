@@ -14,6 +14,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/auth/google/secrets" element={<Home />} />
+        <Route path="/auth/github/callback" element={<Home />} />
         <Route excat path="/about" element={<About />} />
         <Route excat path="/contact" element={<Contact />} />
         <Route excat path="/products" element={<Products />} />
