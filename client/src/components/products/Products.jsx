@@ -42,7 +42,14 @@ function Products() {
             <SortProducts sortBy={sortBy} onSortChange={setSortBy} />
             <div className="products-container" >
                 {productsList.map((product) => {
-                    return <ProductCard key={product.id} name={product.name} imgName={product.imgname} shortDescription={product.description} charge={product.charge} battery={product.batteryendurancemiles} price={parseInt(product.price)} isInStock={product.isinstock} />
+                  const stars = {
+                    star1: product.star1, 
+                    stars2: product.stars2,
+                    stars3: product.stars3,
+                    stars4: product.stars4,
+                    stars5: product.stars5,
+                  };
+                    return <ProductCard key={product.id} name={product.name} imgName={product.imgname} shortDescription={product.description} charge={product.charge} battery={product.batteryendurancemiles} price={parseInt(product.price)} isInStock={product.isinstock} stars={stars} />
                 })}
             </div>
         </main>
