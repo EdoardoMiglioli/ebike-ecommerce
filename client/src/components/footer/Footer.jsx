@@ -29,7 +29,7 @@ function Footer() {
         <div className="footer-login-register-container">
             <a className="footer-anchor login-anchor" href="/login">Login</a>
             <a className="footer-anchor register-anchor" href="/register">Register</a>
-            {isLoggedIn && <a className="footer-anchor register-anchor" href="http://localhost:5001/auth/logout">Logout</a>}
+            {isLoggedIn && <form className="footer-anchor register-anchor" action="http://localhost:5001/auth/logout" method="delete"><button type="submit">Logout</button></form>}
         </div>
     </footer>);
 }

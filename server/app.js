@@ -67,15 +67,12 @@ app.get("/api/check-auth", (req, res) => {
   } else {
     res.json({isAuthenticated: false});
   }
-})
+});
 
-app.get("/auth/logout", (req, res) => {
-  req.logout((err) => {
-    if (err) {
-      console.error('Error logging out:', err);
-      return res.status(500).send('Error logging out');
-    }
-    res.redirect("http://localhost:3000");
+app.delete('/auth/logout', function(req, res, next){
+  req.logout(function(err) {
+    if (err) { return next(err); }
+    res.redirect('http://localhost:3000');
   });
 });
 
@@ -87,8 +84,20 @@ app.get("/products", async (req, res) => {
     const listOfBikes = response.rows;
     res.json({ products: listOfBikes });
   } catch (error) {
-    console.error("Error retrieving products:", error);
+    console.error("Error retrieving products: ", error);
     res.status(500).json({ error: "Error retrieving products" });
+  }
+})
+
+app.get("/product/:product", async (req, res) => {
+  const product = req.params.product;
+  try {
+    const response = await db.query(`SELECT * FROM public.products WHERE name = $1`, [product]);
+    const fetchedProduct = response.rows[0];
+    res.json({ product: fetchedProduct });
+  } catch (error) {
+    console.error(`Error retrieving product ${product}: `, error);
+    res.status(500).json({ error: `Error retrieving products ${product}` });
   }
 })
 
