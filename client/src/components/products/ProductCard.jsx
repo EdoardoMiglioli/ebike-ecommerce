@@ -8,6 +8,12 @@ function ProductCard(props) {
     const imgPath = `/images/CardImages/${props.imgName}.webp`;
     const productPath = `product/${props.name}`;
 
+    function calculateRating(star1, stars2, stars3, stars4, stars5) {
+        return ((1 * star1) + (1 * stars2) + (1 * stars3) + (1 * stars4) + (1 * stars5)) / 5
+    }
+
+    const rating = calculateRating(props.stars.star1, props.stars.stars2, props.stars.stars3, props.stars.stars4, props.stars.stars5);
+
     let stock;
     if (isInStock) {
         stock = "In Stock";
@@ -23,7 +29,7 @@ function ProductCard(props) {
                     <h2 className="product-card-name" >{props.name}</h2>
                     <p className="product-card-description" >{props.shortDescription}</p>
                 </div>
-                <StarRating />
+                <StarRating rating={rating} />
                 <div className="product-card-infos" >
                     <div className="product-card-info" >
                         <PedalBikeIcon />

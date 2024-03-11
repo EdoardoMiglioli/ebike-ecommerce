@@ -29,13 +29,20 @@ function Product() {
     const stock = product.isinstock ? "In Stock" : "Sold Out";
     const imgPath = `/images/CardImages/${product.imgname}.webp`;
 
+    function calculateRating(star1, stars2, stars3, stars4, stars5) {
+        return ((1 * star1) + (1 * stars2) + (1 * stars3) + (1 * stars4) + (1 * stars5)) / 5
+    }
+
+    const rating = calculateRating(product.star1, product.stars2, product.stars3, product.stars4, product.stars5);
+    
+
     return (
         <main className="product-page-container">
             <img className="product-page-img" src={imgPath} />
             <div className="product-page-infos-container" >
                 <h1 className="product-page-title" >{product.name}</h1>
                 <p className="product-page-description" >{product.description}</p>
-                <StarRating />
+                <StarRating rating={rating} />
                 <div className="product-infos" >
                     <div className="product-info" >
                         <PedalBikeIcon />
