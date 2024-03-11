@@ -62,14 +62,14 @@ app.get("/cart/:user", (req, res) => {
 // Authentication
 
 app.get("/api/check-auth", (req, res) => {
-  if (req.isAuthenticated) {
+  if (req.isAuthenticated()) {
     res.json({isAuthenticated: true});
   } else {
     res.json({isAuthenticated: false});
   }
 });
 
-app.delete('/auth/logout', function(req, res, next){
+app.post('/auth/logout', function(req, res, next){
   req.logout(function(err) {
     if (err) { return next(err); }
     res.redirect('http://localhost:3000');
