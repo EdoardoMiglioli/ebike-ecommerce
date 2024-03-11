@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 
 import StarRating from "./StarRating";
@@ -8,26 +9,32 @@ import PedalBikeIcon from '@mui/icons-material/PedalBike';
 
 function Product() {
     // Data for testing before a db was created
-    const product = {name: "SwiftEvelo", imgName: "SwiftEvelo_card", shortDescription: "a modern and comfortable eBike for both the wild and the city.", charge: "750w / 115Nm", batteryEnduranceMiles: 100, price: 3000, isInStock: true}
-
-    const [isInStock, setInStock] = useState(product.isInStock);
+    const [product, setProduct] = useState({})
     const { productName } = useParams();
-    const imgPath = `/images/CardImages/${product.imgName}.webp`;
 
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await axios.get(`/product/${productName}`);
+            setProduct(response.data.product);
+          } catch (err) {
+            console.log("error fetching product data.");
+          }
+        };
+    
+        fetchData();
+      
+    }, []);
 
-    let stock;
-    if (isInStock) {
-        stock = "In Stock";
-    } else {
-        stock = "Sold Out"
-    }
+    const stock = product.isinstock ? "In Stock" : "Sold Out";
+    const imgPath = `/images/CardImages/${product.imgname}.webp`;
 
     return (
         <main className="product-page-container">
             <img className="product-page-img" src={imgPath} />
             <div className="product-page-infos-container" >
                 <h1 className="product-page-title" >{product.name}</h1>
-                <p className="product-page-description" >{product.shortDescription}</p>
+                <p className="product-page-description" >{product.description}</p>
                 <StarRating />
                 <div className="product-infos" >
                     <div className="product-info" >
