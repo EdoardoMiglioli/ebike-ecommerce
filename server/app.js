@@ -16,30 +16,27 @@ const app = express();
 const port = 5001;
 const saltRounds = 10;
 
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true,
-  })
-);
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+}));
 
-app.use(
-  cors({
-    origin: "http://localhost:5001",
-    methods: "GET,POST,PUT,PATCH,DELETE",
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: "http://localhost:3000",
+  methods: "GET,POST,PUT,PATCH,DELETE",
+  credentials: true,
+}));
 
-app.use("/auth", authRoute);
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static("public"));
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: true }));
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use("/auth", authRoute);
+app.use(express.static("public"));
+
 
 const db = new pg.Client({
     user: process.env.DB_USER,
@@ -69,6 +66,14 @@ app.get("/api/check-auth", (req, res) => {
   }
 });
 
+app.get("/userid", (req, res) => {
+  if (req.isAuthenticated()) {
+    res.json({userId: req.user.id})
+  } else {
+    res.json({error: "user is not authenticated."});
+  }
+});
+
 app.post('/auth/logout', function(req, res, next){
   req.logout(function(err) {
     if (err) { return next(err); }
@@ -87,7 +92,7 @@ app.get("/products", async (req, res) => {
     console.error("Error retrieving products: ", error);
     res.status(500).json({ error: "Error retrieving products" });
   }
-})
+});
 
 app.get("/product/:product", async (req, res) => {
   const product = req.params.product;
@@ -95,11 +100,71 @@ app.get("/product/:product", async (req, res) => {
     const response = await db.query(`SELECT * FROM public.products WHERE name = $1`, [product]);
     const fetchedProduct = response.rows[0];
     res.json({ product: fetchedProduct });
-  } catch (error) {
-    console.error(`Error retrieving product ${product}: `, error);
-    res.status(500).json({ error: `Error retrieving products ${product}` });
+  } catch (err) {
+    console.error(`Error retrieving product ${product}: `, err);
+    res.status(500).json({ err: `Error retrieving products ${product}` });
   }
-})
+});
+
+app.post("/has-user-already-cheked", async (req, res) => {
+  if (req.isAuthenticated()) {
+    const userId = req.body.userId;
+    const productId = req.body.productId;
+    const response = await db.query(`SELECT * FROM public.ratings WHERE user_id = $1 AND product_id = $2`, 
+    [userId, productId]);
+    const hasAlreadyRated = response.rows.length > 0;
+    res.json({hasAlreadyRated: hasAlreadyRated});
+  } else {
+    res.json({error: "user is not authenticated."});
+  }
+});
+
+app.post("/user-product-rating", async (req, res) => {
+  if (req.isAuthenticated()) {
+    const userId = req.body.userId;
+    const productId = req.body.productId;
+
+    try {
+      const response = await db.query(`SELECT * FROM public.ratings WHERE user_id = $1 AND product_id = $2`, 
+      [userId, productId]);
+      const { rating } = response.rows[0];
+      res.json({ rating: rating });
+    } catch (err) {
+      console.error(`Error retrieving user's rating: `, err);
+      res.status(500).json({ error: err });
+    }
+  } else {
+    res.json({error: "user is not authenticated."});
+  }
+});
+
+// DB post
+app.post("/product/rating", async (req, res) => {
+  const userId = req.body.userId;
+  const productId = req.body.productId;
+  const rating = req.body.rating;
+  try {
+    const response = await db.query("INSERT INTO ratings (user_id, product_id, rating) VALUES ($1, $2, $3)", [userId, productId, rating],);
+  } catch (err) {
+    if (err.code == 23505) {
+
+      try {
+        const response = await db.query(`
+        UPDATE ratings
+        SET rating = $3
+        WHERE user_id = $1 AND product_id = $2;`, [userId, productId, rating],);
+        return
+
+      } catch (err) {
+        console.log(err)
+        res.status(500).json({error: "Something went wrong when submitting your review."});
+      }
+      
+    }
+    console.log(err)
+    res.status(500).json({error: "Something went wrong when submitting your review."});
+  }
+});
 
 
 // Login / register
