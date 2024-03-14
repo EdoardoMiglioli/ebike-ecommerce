@@ -66,8 +66,6 @@ function StarsReview(props) {
         }
     }, [userId, props.productId]);
 
-    console.log(hasAlreadyRated)
-
     useEffect(() => {
         const fetchUserProductRating = async () => {
             try {
@@ -121,9 +119,9 @@ function StarsReview(props) {
         <div className="stars-review-container" >
             {hasAlreadyRated ? <h3 className="stars-review-title" >Thank you for rating!</h3> : <h3 className="stars-review-title" >Share your opinion.</h3>}
             {error && <p className="error rating-error">{error}</p>}
-            {(hasAlreadyRated || rating || !isLoggedIn) && showIsDisabled &&  <p className="error rating-error">You can't rate</p> }
+            {(!rating || !isLoggedIn) && showIsDisabled &&  <p className="error rating-error">You can't rate</p> }
             <GiveStarRating initialRating={rating} onRatingChange={changeRating} />
-            {rating && isLoggedIn && !hasAlreadyRated ? 
+            {rating && isLoggedIn ? 
             <button className="stars-review-button" onClick={submitRating} >Submit Review</button> :
             <button className="stars-review-button" onClick={showIsDisabledFunc}>Submit Review</button>}
         </div>
