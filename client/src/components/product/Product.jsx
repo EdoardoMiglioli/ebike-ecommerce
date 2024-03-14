@@ -65,7 +65,7 @@ function Product() {
                     </div>
                 </div>
             </div>
-            <StarsReview />
+            <StarsReview productId={product.id} />
         </main>
     );
 } 
