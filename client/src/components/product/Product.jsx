@@ -27,6 +27,10 @@ function Product() {
       
     }, []);
 
+    if (!product || !product.name) {
+        return <div>Loading...</div>;
+    }
+
     const stock = product.isinstock ? "In Stock" : "Sold Out";
     const imgPath = `/images/CardImages/${product.imgname}.webp`;
 

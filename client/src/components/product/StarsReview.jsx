@@ -9,6 +9,7 @@ function StarsReview(props) {
     const [hasAlreadyRated, setHasAlreadyRated] = useState(false);
     const [showIsDisabled, setShowIsDisabled] = useState(false);
     const [error, setError] = useState("");
+    const [submitted, setSubmitted] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -102,12 +103,19 @@ function StarsReview(props) {
                 productId: props.productId,
                 rating: rating,
             }
+            console.log("here bitch")
             const response = await axios.post("/product/rating", body);
+            
 
             if (response.data.error && response.status === 500) {
                 console.log(response.data.error.message);
                 setError(response.data.error.message);
+            } else {
+                
+                
+                setSubmitted(true);
             }
+            console.log("here bitch 2")
             
         } catch (err) {
             console.log(err);
@@ -117,13 +125,23 @@ function StarsReview(props) {
 
     return (
         <div className="stars-review-container" >
-            {hasAlreadyRated ? <h3 className="stars-review-title" >Thank you for rating!</h3> : <h3 className="stars-review-title" >Share your opinion.</h3>}
+            {hasAlreadyRated || submitted ? ( 
+                <h3 className="stars-review-title" >Thank you for rating!</h3> 
+            ) : (
+                <h3 className="stars-review-title" >Share your opinion.</h3> 
+            )}
+
             {error && <p className="error rating-error">{error}</p>}
+
             {(!rating || !isLoggedIn) && showIsDisabled &&  <p className="error rating-error">You can't rate</p> }
+
             <GiveStarRating initialRating={rating} onRatingChange={changeRating} />
-            {rating && isLoggedIn ? 
-            <button className="stars-review-button" onClick={submitRating} >Submit Review</button> :
-            <button className="stars-review-button" onClick={showIsDisabledFunc}>Submit Review</button>}
+
+            {rating && isLoggedIn ? (
+                <button className="stars-review-button" onClick={submitRating} >Submit Review</button>
+            ) : (
+                <button className="stars-review-button" onClick={showIsDisabledFunc}>Submit Review</button>
+            )}
         </div>
     );
 }
