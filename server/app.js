@@ -19,7 +19,7 @@ const saltRounds = 10;
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
 }));
 
 app.use(cors({
@@ -181,20 +181,31 @@ app.post("/login", function(req, res, next) {
   })(req, res, next);
 });
 
-app.post("/register", (req, res) => {
+app.post("/register", (req, res, next) => {
   const { email, password } = req.body;
-    bcrypt.hash(password, saltRounds, (err, hash) => {
-      if (err) throw err;
-      db.query("INSERT INTO users (email, password) VALUES ($1, $2)", [email, hash], (err) => {
-          if (err) {
-            res.status(500).send("Error registering user");
-          } else {
-            res.redirect("/products");
-          }
-      });
-    });
-});
+  bcrypt.hash(password, saltRounds, async (err, hash) => {
+    if (err) throw err;
+    try {
+      // Insert the user into the database
+      const result = await db.query("INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *", [email, hash]);
+      const user = result.rows[0];
 
+      // Authenticate the user
+      req.login(user, (err) => {
+        if (err) {
+          return res.redirect("/login?error=" + encodeURIComponent(err));
+        }
+        return res.redirect("/");
+      });
+    } catch (err) {
+      let error = "Error registering you.";
+      if (err.message === 'duplicate key value violates unique constraint "users_email_key"') {
+        error = "This email is already in use.";
+      }
+      res.redirect(`/register?error=${encodeURIComponent(error)}`);
+    }
+  });
+});
 
 // Passport strategies
 
@@ -273,7 +284,6 @@ async function(accessToken, refreshToken, profile, cb) {
   }
 }
 ));
-
 
 passport.serializeUser((user, cb) => {
   cb(null, user);

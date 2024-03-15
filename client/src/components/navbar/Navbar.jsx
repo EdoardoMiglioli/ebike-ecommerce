@@ -44,7 +44,7 @@ function Navbar() {
       setLoggedIn(isAuthenticated);
     })();
   } catch (err) {
-    console.error('Error checking authentication status:', err);
+    console.error('Error checking authentication status: ', err);
   }
   
   return (
