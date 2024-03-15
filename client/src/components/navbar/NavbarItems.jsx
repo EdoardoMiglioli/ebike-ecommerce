@@ -15,7 +15,7 @@ function NavbarItems(props) {
                 ) : (
                     props.isSmallScreen && <div className="navbar-login-register-container">
                     <li className="navbar-item"><a className={itemClasses} href="/login">Login</a></li> 
-                    <li className="navbar-item"><a className={itemClasses} href="/contact">Contact</a></li>
+                    <li className="navbar-item"><a className={itemClasses} href="/register">Register</a></li>
                   </div>
                 )}
             </ul>
