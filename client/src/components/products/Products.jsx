@@ -49,7 +49,7 @@ function Products() {
                     stars4: product.stars4,
                     stars5: product.stars5,
                   };
-                    return <ProductCard key={product.id} name={product.name} imgName={product.imgname} shortDescription={product.description} charge={product.charge} battery={product.batteryendurancemiles} price={parseInt(product.price)} isInStock={product.isinstock} stars={stars} />
+                    return <ProductCard key={product.id} id={product.id} name={product.name} imgName={product.imgname} shortDescription={product.description} charge={product.charge} battery={product.batteryendurancemiles} price={parseInt(product.price)} isInStock={product.isinstock} stars={stars} />
                 })}
             </div>
         </main>
