@@ -106,6 +106,19 @@ app.get("/product/:product", async (req, res) => {
   }
 });
 
+app.get("/product-ratings/:productId", async (req, res) => {
+  const productId = req.params.productId;
+  try {
+    const response = await db.query(`SELECT * FROM public.ratings WHERE product_id = $1`, [productId]);
+    const fetchedRatings = response.rows;
+    const ratingsArray = fetchedRatings.map(item => item.rating);
+    res.json({ ratings: ratingsArray });
+  } catch (err) {
+    console.error(`Error retrieving product with id ${productId}: `, err);
+    res.status(500).json({ err: `Error retrieving product ${productId}` });
+  }
+});
+
 app.post("/has-user-already-cheked", async (req, res) => {
   if (req.isAuthenticated()) {
     const userId = req.body.userId;
