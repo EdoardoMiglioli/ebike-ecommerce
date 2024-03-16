@@ -9,8 +9,8 @@ import Battery0BarIcon from '@mui/icons-material/Battery0Bar';
 import PedalBikeIcon from '@mui/icons-material/PedalBike';
 
 function Product() {
-    // Data for testing before a db was created
     const [product, setProduct] = useState({})
+    const [ratingsArray, setRatingsArray] = useState([]);
     const { productName } = useParams();
 
     useEffect(() => {
@@ -27,6 +27,20 @@ function Product() {
       
     }, []);
 
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await axios.get(`/product-ratings/${product.id}`);
+            setRatingsArray(response.data.ratings);
+          } catch (err) {
+            console.log("error fetching product ratings.");
+          }
+        };
+    
+        fetchData();
+      
+    }, [product]);
+
     if (!product || !product.name) {
         return <div>Loading...</div>;
     }
@@ -34,13 +48,14 @@ function Product() {
     const stock = product.isinstock ? "In Stock" : "Sold Out";
     const imgPath = `/images/CardImages/${product.imgname}.webp`;
 
-    function calculateRating(star1, stars2, stars3, stars4, stars5) {
-        return ((1 * star1) + (1 * stars2) + (1 * stars3) + (1 * stars4) + (1 * stars5)) / 5
+    const calculateRating = (ratingsArray) => {
+        const ratingsSum = ratingsArray.reduce((acc, currentValue) => acc + currentValue, 0);
+        const ratingsNumber = ratingsArray.length;
+        return ratingsSum / ratingsNumber;
     }
 
-    const rating = calculateRating(product.star1, product.stars2, product.stars3, product.stars4, product.stars5);
+    const rating = calculateRating(ratingsArray);
     
-
     return (
         <main>
             <div className="product-page-container">
