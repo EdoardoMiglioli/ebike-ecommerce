@@ -1,18 +1,37 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
 import StarRating from "./StarRating";
+
 import Battery0BarIcon from '@mui/icons-material/Battery0Bar';
 import PedalBikeIcon from '@mui/icons-material/PedalBike';
 
 function ProductCard(props) {
     const [isInStock, setInStock] = useState(props.isInStock);
+    const [ratingsArray, setRatingsArray] = useState([]);
     const imgPath = `/images/CardImages/${props.imgName}.webp`;
     const productPath = `product/${props.name}`;
 
-    function calculateRating(star1, stars2, stars3, stars4, stars5) {
-        return ((1 * star1) + (1 * stars2) + (1 * stars3) + (1 * stars4) + (1 * stars5)) / 5
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await axios.get(`/product-ratings/${props.id}`);
+            setRatingsArray(response.data.ratings);
+          } catch (err) {
+            console.log("error fetching product ratings.");
+          }
+        };
+    
+        fetchData();
+      
+    }, []);
+
+    const calculateRating = (ratingsArray) => {
+        const ratingsSum = ratingsArray.reduce((acc, currentValue) => acc + currentValue, 0);
+        const ratingsNumber = ratingsArray.length;
+        return Math.round(ratingsSum / ratingsNumber);
     }
 
-    const rating = calculateRating(props.stars.star1, props.stars.stars2, props.stars.stars3, props.stars.stars4, props.stars.stars5);
+    const rating = calculateRating(ratingsArray);
 
     let stock;
     if (isInStock) {
