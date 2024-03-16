@@ -1,22 +1,20 @@
-import axios from "axios";
 import ExternalLoginButtons from "../external-login-buttons/ExternalLoginButtons";
 import React, { useState, useEffect } from "react";
 import LoginForm from "./LoginForm";
-import SignIn from "./SignIn";
 
 function Login() {
     const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
-      const parseQueryString = () => {
+      const getErrorFromURL = () => {
         const searchParams = new URLSearchParams(window.location.search);
-        return searchParams.get('error');
+        const errorParam = searchParams.get('error');
+        if (errorParam) {
+          setErrorMessage(errorParam);
+        }
       };
   
-      const error = parseQueryString();
-      if (error) {
-        setErrorMessage(error);
-      }
+      getErrorFromURL();
     }, []);
 
     const google = () => {
