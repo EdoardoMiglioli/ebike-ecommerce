@@ -177,7 +177,14 @@ app.post("/login", function(req, res, next) {
     if (!user) {
       return res.redirect("/login?error=" + encodeURIComponent(info.message));
     }
-    return res.redirect("/");
+
+    req.login(user, (err) => {
+      if (err) {
+        return res.redirect("/login?error=" + encodeURIComponent(err));
+      }
+      return res.redirect("/");
+    });
+    
   })(req, res, next);
 });
 
@@ -186,23 +193,22 @@ app.post("/register", (req, res, next) => {
   bcrypt.hash(password, saltRounds, async (err, hash) => {
     if (err) throw err;
     try {
-      // Insert the user into the database
       const result = await db.query("INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *", [email, hash]);
       const user = result.rows[0];
 
-      // Authenticate the user
       req.login(user, (err) => {
         if (err) {
           return res.redirect("/login?error=" + encodeURIComponent(err));
         }
         return res.redirect("/");
       });
+
     } catch (err) {
       let error = "Error registering you.";
       if (err.message === 'duplicate key value violates unique constraint "users_email_key"') {
         error = "This email is already in use.";
       }
-      res.redirect(`/register?error=${encodeURIComponent(error)}`);
+      return res.redirect(`/register?error=${encodeURIComponent(error)}`);
     }
   });
 });
@@ -211,10 +217,16 @@ app.post("/register", (req, res, next) => {
 
 passport.use(
   "local",
-  new Strategy(async function verify(username, password, cb) {
+  new Strategy(
+    {
+      usernameField: "email", 
+      passwordField: "password", 
+    }, 
+
+    async function verify(email, password, cb) {
     try {
       const result = await db.query("SELECT * FROM users WHERE email = $1", [
-        username,
+        email,
       ]);
       if (result.rows.length > 0) {
         const user = result.rows[0];
@@ -286,13 +298,18 @@ async function(accessToken, refreshToken, profile, cb) {
 ));
 
 passport.serializeUser((user, cb) => {
-  cb(null, user);
+  cb(null, user.id);
 });
 
-passport.deserializeUser((user, cb) => {
-  cb(null, user);
+passport.deserializeUser(async (id, cb) => {
+  try {
+    const user = await db.query("SELECT * FROM users WHERE id = $1", [id]);
+    cb(null, user.rows[0]);
+  } catch (err) {
+    cb(err, null);
+  }
 });
 
 app.listen(port, () => {
-    console.log(`Server listening on http://localhost:${port}/`)
+  console.log(`Server listening on http://localhost:${port}/`)
 });

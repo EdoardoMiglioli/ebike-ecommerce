@@ -4,7 +4,7 @@ import LoginPasswordField from "./loginFields/LoginPasswordField";
 
 function LoginForm() {
     return (
-        <form className="login-form" action="login" method="post">
+        <form className="login-form" action="/login" method="post">
             <LoginEmailField />
             <LoginPasswordField />
             <button className="login-submit" >Login</button>

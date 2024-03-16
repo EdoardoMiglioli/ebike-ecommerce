@@ -4,13 +4,13 @@ import RegisterForm from "./RegisterForm";
 
 function Register() {
     const [errorMessage, setErrorMessage] = useState('');
-
+    
     useEffect(() => {
       const getErrorFromURL = () => {
         const searchParams = new URLSearchParams(window.location.search);
         const errorParam = searchParams.get('error');
         if (errorParam) {
-            setErrorMessage(errorParam);
+          setErrorMessage(errorParam);
         }
       };
   
@@ -18,7 +18,7 @@ function Register() {
     }, []);
 
     const google = () => {
-        window.open("http://localhost:5001/auth/google", "_self")
+      window.open("http://localhost:5001/auth/google", "_self")
     }
 
     const github = () => {
@@ -26,12 +26,12 @@ function Register() {
     }
       
     return (
-        <main className="register-container">
-            <h1 className="register-title">Register</h1>
-            {errorMessage && <p className="error" >{errorMessage}</p>}
-            <RegisterForm />
-            <ExternalLoginButtons onClickGoogle={google} onClickGitHub={github} />
-        </main>
+      <main className="register-container">
+          <h1 className="register-title">Register</h1>
+          {errorMessage && <p className="error" >{errorMessage}</p>}
+          <RegisterForm />
+          <ExternalLoginButtons onClickGoogle={google} onClickGitHub={github} />
+      </main>
     );
 }
 
