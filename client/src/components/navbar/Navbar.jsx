@@ -11,8 +11,8 @@ function Navbar() {
   const [isMenuClicked, setMenuIsClicked] = useState(false);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const location = useLocation();
-  const isProductPage = checkLocation(location.pathname.substring(0, 9), "/product/");
-  const logoPath = `/images/${isProductPage ? "eBike_logo_dark" : "eBike_logo"}.png`
+  const isWhitePage = checkLocation(location.pathname.substring(0, 9), "/product/") || checkLocation(location.pathname.substring(0, 5), "/cart");
+  const logoPath = `/images/${isWhitePage ? "eBike_logo_dark" : "eBike_logo"}.png`
 
   function toggleBurgerMenu() {
     setMenuIsClicked(!isMenuClicked);
@@ -50,10 +50,10 @@ function Navbar() {
   return (
         <nav className='navbar-container'>
           <a className="logo-anchor" href="/"><img id="logo" src={logoPath} alt="logo" /></a>
-          {screenWidth <= 900 ? <BurgerMenuIcon onClick={toggleBurgerMenu} /> : <NavbarItems isLoggedIn={isLoggedIn} isSmallScreen={false} isProductPage={isProductPage} />}
-          {screenWidth >= 900 && <LoginOrCart isLoggedIn={isLoggedIn} isProductPage={isProductPage} />}
+          {screenWidth <= 900 ? <BurgerMenuIcon onClick={toggleBurgerMenu} /> : <NavbarItems isLoggedIn={isLoggedIn} isSmallScreen={false} isWhitePage={isWhitePage} />}
+          {screenWidth >= 900 && <LoginOrCart isLoggedIn={isLoggedIn} isWhitePage={isWhitePage} />}
 
-          {isMenuClicked && screenWidth <= 900 && <NavbarItems isLoggedIn={isLoggedIn} isSmallScreen={true} isProductPage={isProductPage} />}
+          {isMenuClicked && screenWidth <= 900 && <NavbarItems isLoggedIn={isLoggedIn} isSmallScreen={true} isWhitePage={isWhitePage} />}
         </nav>
   );
 }

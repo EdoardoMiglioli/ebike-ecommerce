@@ -2,8 +2,8 @@ import LocalMallIcon from '@mui/icons-material/LocalMall';
 import React from "react";
 
 function LoginOrCart(props) {
-    const loginClasses = `login-button ${props.isProductPage ? "login-button-product" : ""}`;
-    const chartStyle = props.isProductPage ? "black" : "white";
+    const loginClasses = `login-button ${props.isWhitePage ? "login-button-product" : ""}`;
+    const chartStyle = props.isWhitePage ? "black" : "white";
     return (
         <div>
             {props.isLoggedIn ? <a className="cart" href="/cart"><LocalMallIcon className="cart-icon" style={{ color: chartStyle }} /></a> : 
