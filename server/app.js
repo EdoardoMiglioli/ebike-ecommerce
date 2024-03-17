@@ -1,6 +1,6 @@
 import authRoute from "./auth.js";
 import bcrypt from "bcrypt"
-import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from 'dotenv';
 dotenv.config();
@@ -15,6 +15,8 @@ import pg from "pg";
 const app = express();
 const port = 5001;
 const saltRounds = 10;
+
+app.use(cookieParser());
 
 app.use(session({
   secret: process.env.SESSION_SECRET,
@@ -176,6 +178,33 @@ app.post("/product/rating", async (req, res) => {
     }
     console.log(err)
     res.status(500).json({error: "Something went wrong when submitting your review."});
+  }
+});
+
+// Cookies
+
+app.post("/add-to-cart/:productName", (req, res) => {
+  if (req.isAuthenticated()) {
+    try {
+      const productName = req.params.productName;
+      const cartItems = req.cookies.cart || [];
+      
+      if (cartItems.includes(productName)) {
+        res.redirect("/cart");
+        return
+      }
+
+      const oneYearMilliseconds = 365 * 24 * 60 * 60 * 1000;
+      res.cookie("cart", [...cartItems, productName], { maxAge: oneYearMilliseconds }); 
+      res.redirect("/cart");
+      return
+
+    } catch (err) {
+      console.log("here")
+      res.status(500).json({error: err});
+    }
+  } else {
+    res.status(401).json({error: "user is not authenticated."});
   }
 });
 

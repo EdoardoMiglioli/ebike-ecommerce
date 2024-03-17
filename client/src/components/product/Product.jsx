@@ -11,6 +11,7 @@ import PedalBikeIcon from '@mui/icons-material/PedalBike';
 function Product() {
     const [product, setProduct] = useState({})
     const [ratingsArray, setRatingsArray] = useState([]);
+    const [isLoggedIn, setLoggedIn] = useState(false);
     const { productName } = useParams();
 
     useEffect(() => {
@@ -44,6 +45,16 @@ function Product() {
     if (!product || !product.name) {
         return <div>Loading...</div>;
     }
+
+    try{
+        (async () => {
+          const response = await axios.get('/api/check-auth');
+          const { isAuthenticated } = response.data;
+          setLoggedIn(isAuthenticated);
+        })();
+      } catch (err) {
+        console.error('Error checking authentication status: ', err);
+      }
 
     const stock = product.isinstock ? "In Stock" : "Sold Out";
     const imgPath = `/images/CardImages/${product.imgname}.webp`;
@@ -79,7 +90,14 @@ function Product() {
                         </div>
                     </div>
                     <div className="product-buttons-container">
-                        <a href="/" className="product-button cart-button">Add to Cart</a>
+                        {isLoggedIn ? (
+                                <form className="add-to-cart-form" action={`/add-to-cart/${product.name}`} method="post">
+                                    <button type="submit" className="product-button cart-button">Add to Cart</button>
+                                </form> 
+                            ) : (
+                                <button className="product-button cart-button">Add to Cart</button>
+                            )
+                        }
                         <a href="/" className="product-button buy-button">Buy Now</a>
                     </div>
                 </div>
