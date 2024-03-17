@@ -2,8 +2,8 @@ import LocalMallIcon from '@mui/icons-material/LocalMall';
 import React from "react";
 
 function NavbarItems(props) {
-    const itemClasses = `navbar-link ${props.isProductPage ? "dark" : ""}`;
-    const chartStyle = props.isProductPage ? "black" : "white";
+    const itemClasses = `navbar-link ${props.isWhitePage ? "dark" : ""}`;
+    const chartStyle = props.isWhitePage ? "black" : "white";
     return (
         <div>
             <ul className="navbar-items-list">

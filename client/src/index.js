@@ -7,6 +7,7 @@ import './styles/navbar.css';
 import './styles/footer.css';
 import './styles/home.css';
 import './styles/about.css';
+import './styles/cart.css';
 import './styles/contact.css';
 import './styles/products.css';
 import './styles/product.css';
