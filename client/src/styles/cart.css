@@ -1,7 +1,7 @@
 .cart-container {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 /* Cart cards */
@@ -14,16 +14,15 @@
 
 .cart-card-container {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto 1fr;
+    align-items: center;
     gap: 60px;
-    width: 70%;
-    height: 30vh;
-    margin: 0 15%;
+    width: 80%;
+    margin: 0 10% 40px 10%;
 }
 
 .cart-card-img {
-    min-height: 25vh;
-    max-height: 30vh;
+    height: 30vh;
     border-radius: 25px;
 }
 
@@ -63,7 +62,7 @@
 .cart-buy-button-container {
     align-self: flex-end;
     width: 100%;
-    margin-top: auto;
+    margin-top: 60px;
     margin-bottom: 20px;
 }
 
@@ -105,5 +104,20 @@
     .cart-card-container {
         width: 80%;
         margin: 0 10%;
+    }
+
+    .cart-card-container {
+        grid-template-columns: auto;
+        grid-template-rows: auto auto;
+        gap: 40px;
+        margin-bottom: 60px;
+    }
+
+    .cart-card-img {
+        margin: 0 auto;
+    }
+
+    .cart-buy-button-container {
+        margin-top: 30px;
     }
 }
