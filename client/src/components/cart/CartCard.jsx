@@ -1,7 +1,28 @@
-import React from "react";
+import axios from "axios";
+import React, {useState, useEffect} from "react";
 
 function Cartcard(props) {
-    const product = props.product;
+    const productName = props.productName;
+    const [product, setProduct] = useState({});
+
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await axios.get(`/product/${productName}`);
+            setProduct(response.data.product);
+          } catch (err) {
+            console.log("error fetching product data.");
+          }
+        };
+    
+        fetchData();
+      
+    }, []);
+
+    if (!product || !product.name) {
+        return <div>Loading...</div>;
+    }
+
     const imgPath = `/images/CardImages/${product.imgname}.webp`;
 
     let stock;

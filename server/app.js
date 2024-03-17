@@ -183,6 +183,24 @@ app.post("/product/rating", async (req, res) => {
 
 // Cookies
 
+app.get("/cart-products", (req, res) => {
+  if (req.isAuthenticated()) {
+    try {
+      if (!req.cookies.cart) {
+        const oneYearMilliseconds = 365 * 24 * 60 * 60 * 1000;
+        res.cookie("cart", [], { maxAge: oneYearMilliseconds }); 
+      }
+
+      const products = req.cookies.cart;
+      res.json({products: products})
+      return
+
+    } catch (err) {
+      res.status(500).json({error: err});
+    }
+  }
+});
+
 app.post("/add-to-cart/:productName", (req, res) => {
   if (req.isAuthenticated()) {
     try {
@@ -200,7 +218,6 @@ app.post("/add-to-cart/:productName", (req, res) => {
       return
 
     } catch (err) {
-      console.log("here")
       res.status(500).json({error: err});
     }
   } else {
