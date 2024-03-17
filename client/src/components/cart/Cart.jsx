@@ -6,19 +6,33 @@ import CartBuyButton from "./CartBuyButton";
 
 function Cart() {
     const [cartProduct, setCartProduct] = useState([]);
-    const product = {
-        name: "eBike name",
-        imgname: "3cycle_card",
-        isinstock: true,
-        description: "descpription descpription descpription descpription descpription descpription",
-        price: 2500
-    }
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`/cart-products`);
+                setCartProduct(response.data.products);
+            } catch (err) {
+                setError("Error getting your products.")
+            }
+        }
+
+        fetchData();
+
+    }, []);
 
     return (
         <main className="cart-container">
-            <div className="cart-cards-container">
-                <CartCard product={product} />
-            </div>
+            {error ? (
+                <p className="error" >{error}</p>
+            ) : (
+                <div className="cart-cards-container">
+                    {cartProduct.map((productName, index) => {
+                        return <CartCard key={index} productName={productName} />
+                    })}
+                </div>
+            )}
             <CartBuyButton />
         </main>
     );
