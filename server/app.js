@@ -225,6 +225,26 @@ app.post("/add-to-cart/:productName", (req, res) => {
   }
 });
 
+app.delete("/delete-from-cart/:productName", (req, res) => {
+  if (req.isAuthenticated()) {
+    try{
+      const productName = req.params.productName;
+      const cartItems = req.cookies.cart
+
+      const newCartItems = cartItems.filter(product => product !== productName);
+
+      const oneYearMilliseconds = 365 * 24 * 60 * 60 * 1000;
+      res.cookie("cart", newCartItems, { maxAge: oneYearMilliseconds }); 
+      res.redirect("/cart");
+
+    } catch (err) {
+      res.status(500).json({error: err});
+    }
+  } else {
+    res.status(401).json({error: "user is not authenticated."});
+  }
+});
+
 
 // Login / register
 
