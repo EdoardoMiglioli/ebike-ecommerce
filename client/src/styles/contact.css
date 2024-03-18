@@ -144,4 +144,19 @@
     .contact-info-title {
         font-size: var(--big-title-font-size);
     }
+
+    .contact-container {
+        grid-template-columns: auto;
+        grid-template-rows: auto auto;
+        padding: 15% 20%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+
+    .contact-container {
+        grid-template-columns: auto;
+        grid-template-rows: auto auto;
+        padding: 25% 15%;
+    }
 }
