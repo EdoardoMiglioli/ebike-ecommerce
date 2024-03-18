@@ -4,6 +4,7 @@ import Home from './home/Home';
 import About from './about/About';
 import Cart from './cart/Cart';
 import Contact from './contact/Contact'
+import Payments from './payments/Payments';
 import Product from './product/Product';
 import Products from './products/Products';
 import Register from './register/Register';
@@ -26,6 +27,7 @@ function App() {
         <Route excat path="/login" element={<Login />} />
 
         <Route excat path="/cart" element={<Cart />} />
+        <Route excat path="/payments" element={<Payments />} />
         <Route path="*" element={<h1>Not found 404 (*O*)</h1>} />
       </Routes>
     </Router>
