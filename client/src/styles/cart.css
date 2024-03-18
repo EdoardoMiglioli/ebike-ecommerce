@@ -51,10 +51,20 @@
     margin: 0;
 }
 
+.cart-price-delete-container {
+    display: grid;
+    grid-template-rows: auto auto;
+}
+
 .cart-card-price {
     margin: 0;
     text-align: right;
     font-size: var(--subtitle-font-size);
+}
+
+.cart-delete-button-container {
+    text-align: right;
+    color: var(--error-color);
 }
 
 /* Buy button */

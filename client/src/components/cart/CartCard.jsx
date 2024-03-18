@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, {useState, useEffect} from "react";
 
+import CartDeleteButton from "./CartDeleteButton";
+
 function Cartcard(props) {
     const productName = props.productName;
     const [product, setProduct] = useState({});
@@ -41,7 +43,10 @@ function Cartcard(props) {
                     <p className="cart-card-stock" >{stock}</p>
                     <p className="cart-card-description" >{product.description}</p>
                 </div>
-                <h4 className="cart-card-price" >${product.price}</h4>
+                <div className="cart-price-delete-container" >
+                    <h4 className="cart-card-price" >${product.price}</h4>
+                    <CartDeleteButton productName={product.name} />
+                </div>
             </div>
         </div>
     );
