@@ -66,6 +66,16 @@ function Product() {
     }
 
     const rating = calculateRating(ratingsArray);
+
+    const redirectToPayments = () => {
+      const dataToSend = { 
+        productName: product.name  
+      };
+      const queryParams = new URLSearchParams(dataToSend).toString();
+      const url = `/payments?${queryParams}`;
+  
+      window.location.href = url;
+    };
     
     return (
         <main>
@@ -98,7 +108,7 @@ function Product() {
                                 <button className="product-button cart-button">Add to Cart</button>
                             )
                         }
-                        <a href="/" className="product-button buy-button">Buy Now</a>
+                        <a href="#" className="product-button buy-button" onClick={redirectToPayments} >Buy Now</a>
                     </div>
                 </div>
             </div>
