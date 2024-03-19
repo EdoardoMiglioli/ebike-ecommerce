@@ -1,11 +1,35 @@
-import React from "react";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
 
-const PaymentsProductsListCard = () => {
+const PaymentsProductsListCard = (props) => {
+    const [product, setProduct] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await axios.get(`/product/${props.productName}`);
+            setProduct(response.data.product);
+          } catch (err) {
+            console.log("error fetching product data.");
+          }
+        };
+    
+        fetchData();
+      
+    }, []);
+
+
+    if (!product) {
+        return <div>Loading...</div>
+    }
+
+    const imgPath = `/images/CardImages/${product.imgname}.webp`;
+
     return (
         <div className="payments-products-card">
-            <img src="/images/cardImages/3cycle_card.webp" className="payments-products-card-img" />
-            <h4 className="payments-products-card-title">fgjsfgertg</h4>
-            <h5 className="payments-products-card-price">$3000</h5>
+            <img src={imgPath} className="payments-products-card-img" />
+            <h4 className="payments-products-card-title">{product.name}</h4>
+            <h5 className="payments-products-card-price">{product.price}</h5>
         </div>
     );
 }
